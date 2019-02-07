@@ -1,0 +1,17 @@
+{
+  "name": "maltem",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "frontend": "cd frontend && npm start",
+    "backend": "cd backend && npm start",
+    "start": "concurrently --kill-others \"npm run backend\" \"npm run frontend\""
+  },
+  "keywords": [],
+  "author": "Tony",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^4.1.0"
+  }
+}
