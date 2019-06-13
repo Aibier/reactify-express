@@ -1,21 +1,16 @@
-var express = require('express');
-var router = express.Router();
-const config = require('../../config');
-const pgp = require('pg-promise')(/*options*/);
-const db = pgp(`postgres://${config.userName}:${config.password}@host:${config.port}/${config.dbname}`);
+var faker = require("faker");
+var db = require('../queries');
+var appRouter = function (app) {
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  console.log(config.userName)
-  // const data = await db.query('select * from profile', []);
-  res.status(200).send({title: 'tony', message: 'Messthe'})
-  next()
-});
 
-router.get('/products', function(req, res, next) {
-  // console.log(config.userName)
-  // // const data = await db.query('select * from profile', []);
-  // res.status(200).send({title: 'tony', message: 'Messthe'})
-  next()
-});
-module.exports = router;
+    app.get("/", function(req, res) {
+   	  res.status(200).send({ message: 'Welcome to our restful API' });
+    });
+    app.get('/api/products', db.getAllProducts);
+    app.get('/api/products/:id', db.getSingleProduct);
+    app.post('/api/products', db.createProduct);
+    app.put('/api/products/:id', db.updateProduct);
+    app.delete('/api/products/:id', db.removeProduct);
+}
+
+module.exports = appRouter;
